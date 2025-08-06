@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Jobs {
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  title           String
+  description     String
+  location        String
+  salary          String
+  job_type        String @default("On-Site")
+  employment_type String @default("Full-time")
+}
+
+model user {
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  email       String        @unique
+  password    String
+  role        String
+  review      Review[]
+  company     Company?
+  application application[]
+}
+
+model Company {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  owner       String     @unique @db.ObjectId
+  job         Openings[]
+  ownerid     user       @relation(fields: [owner], references: [id])
+}
+
+model Openings {
+  id              String  @id @default(auto()) @map("_id") @db.ObjectId
+  title           String
+  description     String
+  location        String
+  salary          String
+  job_type        String  @default("On-Site")
+  employment_type String  @default("Full-time")
+  compid          String  @db.ObjectId
+  company         Company @relation(fields: [compid], references: [id])
+}
+
+model application {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  user_id String @db.ObjectId
+  user    user   @relation(fields: [user_id], references: [id])
+  job_id  String
+}
+
+model Review {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  content String
+  user_id String @db.ObjectId
+  user     user  @relation(fields: [user_id], references: [id])
+  company String
+}
