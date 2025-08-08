@@ -1,7 +1,9 @@
 //@ts-nocheck
 
+import { getuserfromcookies } from "@/app/helper";
 import Applybtn from "@/Component/buttons/Applubtn";
 import View_applicants from "@/Component/buttons/View_applicants";
+import prismaClient from "@/services/prisma";
 
 export default async function Detail({ params }) {
 
@@ -10,8 +12,21 @@ export default async function Detail({ params }) {
 
   const res = await fetch(`http://localhost:3000/api/detail/${decodeid}`);
   const data = await res.json();
+   const datatodisplay = data?.data;
 
-  const datatodisplay = data?.data;
+   const user = await getuserfromcookies();
+
+   let userhasAplied= false;
+
+   if(user){
+    const app = await prismaClient.application.findMany({
+      where : {
+        job_id : id,
+        user_id : user.id
+      }
+    })
+    if(app.length>0) userhasAplied = true;
+   }
 
 
   return (
@@ -41,8 +56,13 @@ export default async function Detail({ params }) {
         )}
 
         <div className="flex gap-4">
-          <Applybtn job={datatodisplay} />
-          <View_applicants job={datatodisplay} />
+          {
+            user.role != "admin" && !userhasAplied  && <Applybtn job={datatodisplay} /> 
+          }
+          {
+            user?.company?.id == datatodisplay?.company?.id &&  <View_applicants job={datatodisplay} />
+          }
+         
         </div>
 
       </div>

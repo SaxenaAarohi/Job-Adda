@@ -17,11 +17,16 @@ if(user){
         data : user
     })
 }
+else{
+     return NextResponse.json({
+        success : false,
+        message : "Email already in use"
+    })
+}
 
 }
 catch(err : any){
     console.log(err.message);
-    alert("Already used")
     return NextResponse.json({
         success : false,
         message : "Something Went Wrong"

@@ -25,8 +25,11 @@ export default function Login() {
      const data = await res.json();
 
      if(data?.success){
-      alert("logged in");
+      alert("Logged in");
       router.push("/");
+     }
+     else{
+      alert(data?.message);
      }
     
   };

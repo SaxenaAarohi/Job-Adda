@@ -43,7 +43,7 @@ export default async function Search({ searchParams }) {
     });
 
     return (
-        <div className="flex flex-wrap gap-5 justify-center py-4">
+        <div className="flex flex-wrap gap-5 justify-center md:py-4 py-1">
             {results.map((job) => (
                 <JobCard key={job.id} job={job} />
             ))}

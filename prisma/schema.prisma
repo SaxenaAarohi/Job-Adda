@@ -44,28 +44,36 @@ model Company {
 }
 
 model Openings {
-  id              String  @id @default(auto()) @map("_id") @db.ObjectId
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
   title           String
   description     String
   location        String
   salary          String
-  job_type        String  @default("On-Site")
-  employment_type String  @default("Full-time")
-  compid          String  @db.ObjectId
-  company         Company @relation(fields: [compid], references: [id])
+  job_type        String        @default("On-Site")
+  employment_type String        @default("Full-time")
+  compid          String        @db.ObjectId
+  company         Company       @relation(fields: [compid], references: [id])
+  application     application[]
 }
 
 model application {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
-  user_id String @db.ObjectId
-  user    user   @relation(fields: [user_id], references: [id])
-  job_id  String
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  user_id String   @db.ObjectId
+  user    user     @relation(fields: [user_id], references: [id])
+  job_id  String   @db.ObjectId
+  job     Openings @relation(fields: [job_id], references: [id])
 }
 
 model Review {
   id      String @id @default(auto()) @map("_id") @db.ObjectId
   content String
   user_id String @db.ObjectId
-  user     user  @relation(fields: [user_id], references: [id])
+  user    user   @relation(fields: [user_id], references: [id])
   company String
+}
+
+model Savejob {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  job_id  String
+  user_id String
 }

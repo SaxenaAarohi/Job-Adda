@@ -1,6 +1,8 @@
 //@ts-nocheck
 "use client"
 
+import { RiTelegram2Fill } from "react-icons/ri";
+
 export default function Applybtn({job}) {
 
     async function handleapply() {
@@ -24,7 +26,7 @@ export default function Applybtn({job}) {
     }
 
     return (
-        <button onClick={handleapply} className="inline-block mt-4 bg-blue-600 text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-700 transition">Apply Now</button>
+        <button onClick={handleapply} className="flex items-center gap-2 text-xl text-gray-200 py-1 bg-blue-500 px-1 mt-4 " title="Apply for job"><RiTelegram2Fill />Apply</button>
 
     )
 }

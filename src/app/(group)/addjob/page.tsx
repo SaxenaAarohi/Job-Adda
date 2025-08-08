@@ -1,7 +1,7 @@
 'use client'
 //@ts-nocheck
 import { getuserfromcookies } from "@/app/helper";
-import { UserContext } from "@/Context/Usercontext";
+import {  useUser } from "@/Context/Usercontext";
 import { useContext, useState } from "react";
 
 export default function AddJobForm() {
@@ -12,7 +12,7 @@ export default function AddJobForm() {
   const [salary, setSalary] = useState("");
   const [job_type, setJob] = useState("");
   const [emp_type, setemployement] = useState("");
-   const { user }  = useContext(UserContext);
+   const { user }  = useUser();
   
   async function handlesubmit(e :  any) {
 

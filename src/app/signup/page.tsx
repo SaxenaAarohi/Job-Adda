@@ -29,6 +29,9 @@ export default function Signup() {
                 alert("Signed up");
                 router.push("/");
             }
+            else{
+                alert(data.message)
+            }
 
         }
         catch(err : any){
@@ -36,7 +39,6 @@ export default function Signup() {
 
         }
      
-
     }
 
 

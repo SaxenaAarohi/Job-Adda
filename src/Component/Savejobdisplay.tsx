@@ -1,6 +1,7 @@
 import { Openings } from "../../generated/prisma";
 import { Company } from "../../generated/prisma";
  import Link from "next/link";
+import Savejobdlt from "./buttons/Dltsavejob";
 
 export function Savejobdisplay({job} : {
     job : Openings,
@@ -13,13 +14,15 @@ export function Savejobdisplay({job} : {
         className="flex flex-col bg-gray-900 w-[400px] rounded-2xl shadow-md p-5  hover:shadow-lg transition-shadow border border-gray-800"
       >
 
-        <h2 className="text-lg text-white font-bold text-gray-800 line-clamp-1">
-          {job.title}
-        </h2>
+    <div className="flex items-start justify-between">
 
+          <h2 className="text-lg text-white font-bold text-gray-800 line-clamp-1">
+            {job.title}
+          </h2>
+         
+        <Savejobdlt job={job}/>  
 
-        <p className="text-sm text-gray-100">{job?.company?.name}</p>
-
+        </div>
 
         <p className="text-sm mt-2 text-gray-200">
           📍 {job.location} | 💼 {job.employment_type}

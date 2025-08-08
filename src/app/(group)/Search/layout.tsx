@@ -9,7 +9,7 @@ export default function SearchLayout({
     children: React.ReactNode;
 }>) {
     return (
-<div className="flex gap-2 w-full  p-2">
+<div className=" flex flex-col md:flex-row gap-2  w-full  p-2">
  
   <Filter/>
   <div className="flex-1  rounded-xl shadow-md p-4">

@@ -4,8 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest, { params }) {
 
-    const job_id = params.id;
-    console.log(job_id);    
+    const job_id = params.id;    
 
     try {
         const applicants = await prismaClient.application.findMany({
@@ -38,5 +37,42 @@ export async function GET(req: NextRequest, { params }) {
         console.log(err.messgae);
     } 
 
+
+}
+
+
+export async function DELETE(req: NextRequest, { params }) {
+
+    const jobid = await params.id;
+
+
+    try {
+        const res = await prismaClient.application.deleteMany({
+            where: {
+                job_id : jobid,
+            }
+        })
+
+        if (res) {
+            return NextResponse.json({
+                success: true,
+                message: "deletd"
+            })
+        }
+        else{
+                return NextResponse.json({
+                success: false,
+                message: "Something Went Wrong"
+            })
+        }
+
+    }
+    catch (err) {
+        console.log(err.message)
+        return NextResponse.json({
+            success: false,
+            message: err.message
+        })
+    }
 
 }

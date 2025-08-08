@@ -5,7 +5,7 @@ import Review from "@/Component/Review";
 
 export default async function Comp_detail({ params }) {
 
-  const { user } = (await getuserfromcookies()) || {};
+  const { user } = await getuserfromcookies();
 
     const id = params.id;
     let company;
@@ -23,7 +23,7 @@ export default async function Comp_detail({ params }) {
 
     return (
         <div className="max-w-full mx-4 bg-gray-900 text-white p-6 m-4 rounded-2xl shadow-lg">
-            <h1 className="text-3xl font-bold mb-2">{company?.name}</h1>
+            <h1 className="text-3xl text-blue-300 font-bold mb-3">{company?.name}</h1>
             <p className="text-gray-300 mb-4">{company?.description}</p>
 
             <h2 className="text-2xl font-semibold mb-3">Openings</h2>
@@ -43,7 +43,7 @@ export default async function Comp_detail({ params }) {
                 )}
             </ul>
 
-            <Review user={user} company={company} />
+            <Review user={user?.id} company={company} />
 
         </div>
     );

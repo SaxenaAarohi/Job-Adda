@@ -1,6 +1,7 @@
 "use client"
 import { useState } from "react";
 import { Openings } from "../../../generated/prisma";
+import { FaPencil } from "react-icons/fa6";
 
 export default function Edit({ job }: {
     job: Openings
@@ -11,7 +12,7 @@ export default function Edit({ job }: {
     const [location, setLocation] = useState(job.location);
     const [employmentType, setEmploymentType] = useState(job.employment_type);
     const [description, setDescription] = useState(job.description);
-     const [job_type, setJobtype] = useState(job.job_type);
+    const [job_type, setJobtype] = useState(job.job_type);
 
     async function handlesubmit(e: any) {
         e.preventDefault();
@@ -24,35 +25,37 @@ export default function Edit({ job }: {
             job_type
         };
 
-        try{
-         
-         const res = await fetch(`/api/detail/${job.id}`,{
-            method : "POST",
-            body : JSON.stringify(updatedJob)
-         })
-        
-        //  const data = await res.json();
-        //       console.log("yha tk aagy");
-        //  if(data.success){
-        //     alert("updated");
-        //  }
-        //  else{
-        //     alert("Something went wrong");
-        //  }
+        try {
+
+            const res = await fetch(`/api/detail/${job.id}`, {
+                method: "POST",
+                body: JSON.stringify(updatedJob)
+            })
+
+            //  const data = await res.json();
+            //       console.log("yha tk aagy");
+            //  if(data.success){
+            //     alert("updated");
+            //  }
+            //  else{
+            //     alert("Something went wrong");
+            //  }
 
         }
-        catch(err : any){
+        catch (err: any) {
             console.log(err.message);
         }
 
-          setIsOpen(false);
+        setIsOpen(false);
 
     }
 
     return (
         <>
 
-            <button onClick={() => setIsOpen(true)} className="inline-block mt-4 bg-blue-600 text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-700 transition">Edit</button>
+            <button onClick={() => setIsOpen(true)} ><FaPencil />
+            </button>
+
             {isOpen && (
                 <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
                     <div className="bg-gray-900  rounded-xl p-6 w-full max-w-lg shadow-lg">
@@ -83,7 +86,7 @@ export default function Edit({ job }: {
                                 placeholder="Employment Type"
                             />
 
-                              <input
+                            <input
                                 type="text"
                                 value={job_type}
                                 onChange={(e) => setJobtype(e.target.value)}

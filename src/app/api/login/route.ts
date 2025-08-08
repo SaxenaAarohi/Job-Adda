@@ -6,25 +6,56 @@ export async function POST(req: NextRequest) {
 
   const body = await req.json();
 
-  const user = await prismaClient.user.findUnique({
-    where: {
-      email: body.email,
-    }
-  })
+  try {
 
-  if (user?.password == body.password) {
-    const res = NextResponse.json({
-      success: true,
-      user: user
+    const user = await prismaClient.user.findUnique({
+      where: {
+        email: body.email,
+      }
     })
-    res.cookies.set("email", user?.email);
-    return res;
+
+    if (user) {
+      if (user?.password == body.password) {
+
+        const res = NextResponse.json({
+          success: true,
+          user: user
+        })
+        res.cookies.set("email", user?.email);
+        return res;
+
+      }
+
+      else {
+
+        return NextResponse.json({
+          success: false,
+          message: "Wrong cerednetials"
+        })
+
+      }
+
+    }
+
+    else {
+
+      return NextResponse.json({
+        success: false,
+        message: "User not exist"
+      })
+
+    }
+
+
   }
-  else {
+  catch (err) {
+
     return NextResponse.json({
       success: false,
-      message: "Wrong cerednetials"
-
+      message: err.message
     })
+
   }
+
+
 }
