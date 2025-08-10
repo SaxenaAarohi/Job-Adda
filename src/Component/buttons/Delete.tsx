@@ -1,4 +1,3 @@
-//@ts-nocheck
 "use client"
 import { useUser } from "@/Context/Usercontext"
 import { useContext } from "react"
@@ -6,9 +5,13 @@ import { FaTrashAlt } from "react-icons/fa";
 import DialogDemo from "./View_applicants";
 import View_applicants from "./View_applicants";
 import Applybtn from "./Applubtn";
+import { Openings, user } from "../../../generated/prisma";
 
 
-export default function Editnddlt({ job , user}) {
+export default function Editnddlt({ job , user} : {
+    job : Openings,
+    user : user
+}) {
 
 
     async function handledlt() {

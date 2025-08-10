@@ -1,7 +1,9 @@
-//@ts-nocheck
 import { BiTrash } from "react-icons/bi"
+import { Openings } from "../../../generated/prisma";
 
-export default function Appdltbtn({job}) {
+export default function Appdltbtn({job} : {
+    job : Openings
+}) {
 
    async function handleclick()
     {

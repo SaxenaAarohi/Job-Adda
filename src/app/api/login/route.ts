@@ -1,4 +1,3 @@
-//@ts-nocheck
 import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -48,7 +47,7 @@ export async function POST(req: NextRequest) {
 
 
   }
-  catch (err) {
+  catch (err : any) {
 
     return NextResponse.json({
       success: false,

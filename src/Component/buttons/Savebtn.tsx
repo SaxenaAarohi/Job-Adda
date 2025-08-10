@@ -1,5 +1,7 @@
-//@ts-nocheck
-export default function Savebtn({ jobid , saved }) {
+export default function Savebtn({ jobid , saved } : {
+  jobid : String ,
+  saved : boolean
+}) {
 
   async function handlesave() {
     try {
@@ -14,7 +16,7 @@ export default function Savebtn({ jobid , saved }) {
       }
 
     }
-    catch(err){
+    catch(err : any){
       console.log(err.messgae);
     }
 

@@ -2,9 +2,11 @@
 import prismaClient from "@/services/prisma";
 import JobCard from "../../Component/Display";
 import Company from "./company/page";
+import { getuserfromcookies } from "../helper";
 
 export default async function Home({ searchParams }) {
 
+  //const {user}=await getuserfromcookies();
   const jobs = await prismaClient.openings.findMany({
     include: {
       company: true

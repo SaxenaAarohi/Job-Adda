@@ -1,13 +1,17 @@
-//@ts-nocheck
 import { getuserfromcookies } from "@/app/helper";
 import prismaClient from "@/services/prisma";
 import Review from "@/Component/Review";
+import { Openings } from "../../../../generated/prisma";
 
-export default async function Comp_detail({ params }) {
+type Params = Promise<{
+id : string
+}>
 
-  const { user } = await getuserfromcookies();
+export default async function Comp_detail({ params } : {params : Params}) {
 
-    const id = params.id;
+    const user = await getuserfromcookies();
+
+    const {id} =await params;
     let company;
     try {
         const res = await fetch("http://localhost:3000/api/company/" + id);
@@ -17,7 +21,7 @@ export default async function Comp_detail({ params }) {
             company = data?.data;
         }
     }
-    catch (err) {
+    catch (err : any) {
         console.log(err.message);
     }
 
@@ -29,7 +33,7 @@ export default async function Comp_detail({ params }) {
             <h2 className="text-2xl font-semibold mb-3">Openings</h2>
             <ul className="space-y-3">
                 {company?.job?.length > 0 ? (
-                    company?.job.map((opening) => (
+                    company?.job.map((opening : Openings) => (
                         <li
                             key={opening.id}
                             className="bg-gray-800 p-4 rounded-lg border border-gray-700"
@@ -42,8 +46,9 @@ export default async function Comp_detail({ params }) {
                     <li className="text-gray-400">No openings available</li>
                 )}
             </ul>
-
-            <Review user={user?.id} company={company} />
+            {user?.id && company?.id && (
+                <Review user={user.id} companyid={company.id} />
+            )}
 
         </div>
     );

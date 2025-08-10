@@ -3,6 +3,12 @@
 import { createContext } from "react";
 import { useState,useEffect } from "react";
 import { useContext } from "react";
+import { user } from "../../generated/prisma";
+
+// type UsercontextType = {
+//   user : user | null ; 
+//   setUser : (user : user | null ) => void
+// }
 
 const Usercontext =createContext(null);
  

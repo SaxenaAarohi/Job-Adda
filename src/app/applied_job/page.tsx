@@ -1,4 +1,3 @@
-//@ts-nocheck
 import JobCard from "@/Component/Display";
 import prismaClient from "@/services/prisma";
 import { getuserfromcookies } from "../helper";

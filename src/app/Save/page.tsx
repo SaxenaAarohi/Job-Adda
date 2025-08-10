@@ -1,4 +1,3 @@
-//@ts-nocheck
 import { Savejobdisplay } from "@/Component/Savejobdisplay";
 import prismaClient from "@/services/prisma";
 import { getuserfromcookies } from "../helper";

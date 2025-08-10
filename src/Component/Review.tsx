@@ -1,85 +1,99 @@
-// @ts-nocheck
 "use client";
-import { useEffect, useState } from "react";
+import prismaClient from "@/services/prisma";
+import { useEffect, useState } from "react"
+import { BiTrash } from "react-icons/bi";
+ 
+type User = {
+  id : string,
+  email : string
+}
 
-export default function Review({ user, company }) {
-  const [review, setReview] = useState("");
+type reviewtype = {
+id : string,
+content : string,
+user : User 
+}
+
+export default function Review({ user, companyid } : {
+  user  : string,
+  companyid : string
+}) {
+
   const [reviews, setReviews] = useState([]);
+  const [review, setReview] = useState("");
 
-  async function getReviews() {
-    try {
-      const res = await fetch(`/api/review?companyId=${company.id}`);
-      const data = await res.json();
-      setReviews(data?.data || []);
-    } 
-    catch (err) {
-      console.error("Error fetching reviews:", err);
-    }
+ async function handlereview() {
+    
+  const data = {
+   content : review,
+   user_id : user,
+   company : companyid
+  };
+
+  const res = await fetch("/api/review" , {
+    method : "POST",
+    body : JSON.stringify(data)
+  });
+  
+
+  const ans = await res.json();
+
+  if(ans.success){
+    alert("Saved");
+  }
+  else{
+    alert(ans.message )
   }
 
-  useEffect(() => {
-    getReviews();
-  }, []);
+  }
 
-  async function handlereview() {
-    if (!review.trim()) {
-      alert("Please write something before submitting.");
-      return;
-    }
-    if (!user?.id) {
-      alert("You must be logged in to submit a review.");
-      return;
-    }
 
-    const newreview = {
-      content: review,       
-      company: company.id,   
-      user_id: user  
-    };
+  async function handledlt(id : string){
+  
+     const res = await fetch("/api/review/"+id ,{
+      method : "DELETE"
+     });
 
-    try {
-      const res = await fetch("/api/review", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(newreview)
-      });
+     const data = await res.json();
+      alert(data.message)
+     
+  }
 
+
+  useEffect(()=>{
+    async function getreviews(){
+      const res = await fetch("/api/review/"+ companyid);
       const data = await res.json();
 
-      if (data.success) {
-        alert("Review added");
-        setReview("");
-        getReviews();
-      } 
-      else {
-        alert(`Something went wrong: ${data.message || "Unknown error"}`);
-      }
-    } catch (err) {
-      console.error("Error submitting review:", err);
+      setReviews(data?.data);
     }
-  }
+    getreviews();
+  },[])
+  
 
   return (
     <div>
-      <h2 className="text-2xl font-semibold mb-3">Review</h2>
+      <h2 className="text-2xl font-semibold mb-3">Reviews</h2>
 
       <ul className="space-y-3">
-
-        {reviews?.map((r) => (
+       
+        {reviews?.map((r : reviewtype) => (
           <li
             key={r.id}
-            className="bg-gray-800 p-4 rounded-lg border border-gray-700"
+            className="bg-gray-800 p-4 flex justify-between rounded-lg border border-gray-700"
           >
-            <p className="text-gray-400">{r.content}</p>
+            <p className="text-gray-200">{r.content}</p>
+             { r.user.id == user ?      
+              <button className="text-gray-400" title="Delete Review" onClick={()=>handledlt(r.id)}><BiTrash/></button>
+            : <p></p>
+            }
           </li>
         ))}
 
       </ul>
 
       <div className="max-w-3xl mx-auto mt-6 bg-gray-900 p-6 rounded-2xl shadow-lg">
-       
+
         <textarea
           onChange={(e) => setReview(e.target.value)}
           value={review}

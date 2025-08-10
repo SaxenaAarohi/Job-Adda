@@ -1,12 +1,15 @@
-//@ts-nocheck
 import { getuserfromcookies } from "@/app/helper";
 import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, { params }) {
+type Params = Promise<{
+ job_id : string
+}>
+
+export async function GET(req: NextRequest, { params } : {params : Params}) {
 
     const user = await getuserfromcookies();
-    const job_id = await params.id;
+    const {job_id} = await params;
 
     if (!user) {
         return NextResponse.json({
@@ -31,7 +34,7 @@ try {
         data : savedjob
     });
 }
-catch(err){
+catch(err : any){
     console.log(err.message);
         return NextResponse.json({
             success: false,
@@ -44,14 +47,14 @@ catch(err){
 
 
 
-export async function DELETE(req: NextRequest, { params }) {
+export async function DELETE(req: NextRequest, { params } : {params : Params}) {
 
-    const jobid = await params.id;
+    const {job_id} = await params;
 
     try {
         const res = await prismaClient.savejob.deleteMany({
             where: {
-                job_id: jobid,
+                job_id
             }
         })
 
@@ -69,7 +72,7 @@ export async function DELETE(req: NextRequest, { params }) {
         }
 
     }
-    catch (err) {
+    catch (err : any) {
         console.log(err.message)
         return NextResponse.json({
             success: false,

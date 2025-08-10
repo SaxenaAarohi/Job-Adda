@@ -29,7 +29,7 @@ export default function JobCard({ job, company, isapply , saved }: {
 
         <div className="flex items-start justify-between">
 
-          <h2 className="text-lg text-white font-bold text-gray-800 line-clamp-1">
+          <h2 className="text-lg md:text-2xl  text-white font-bold text-gray-800 line-clamp-1">
             {job.title}
           </h2>
 
@@ -51,7 +51,7 @@ export default function JobCard({ job, company, isapply , saved }: {
         </div>
 
         {
-          company ? <Link className="text-sm text-gray-100" href={`/comp_detail/${company.id}`} >{company?.name}</Link> : <p></p>
+          company ? <Link className="text-sm md:text-lg text-gray-100" href={`/comp_detail/${company.id}`} >{company?.name}</Link> : <p></p>
 
         }
 
@@ -65,7 +65,7 @@ export default function JobCard({ job, company, isapply , saved }: {
           </p>
         )}
 
-        {user?.role != "admin" && 
+        {user?.user?.role != "admin" && 
         <Savebtn jobid={job.id} saved={saved}/>
         }
 

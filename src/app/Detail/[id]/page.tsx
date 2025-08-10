@@ -30,9 +30,10 @@ export default async function Detail({ params }) {
 
 
   return (
-    <div className=" mx-auto p-6 max-w-4xl  ">
+    <div className="h-screen flex justify-center items-center">
+        <div className=" mx-auto  p-6  max-w-4xl   ">
 
-      <div className="bg-gray-900  text-white rounded-2xl shadow-lg p-6 border border-gray-200">
+      <div className="bg-gray-900  text-white  rounded-2xl shadow-lg p-6 border border-gray-200">
 
         <h1 className="text-2xl font-bold  mb-2">
           {datatodisplay.title}
@@ -67,5 +68,7 @@ export default async function Detail({ params }) {
 
       </div>
     </div>
+    </div>
+  
   );
 }

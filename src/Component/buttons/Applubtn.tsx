@@ -1,9 +1,11 @@
-//@ts-nocheck
 "use client"
 
 import { RiTelegram2Fill } from "react-icons/ri";
+import { Openings } from "../../../generated/prisma";
 
-export default function Applybtn({job}) {
+export default function Applybtn({job} : {
+    job : Openings
+}) {
 
     async function handleapply() {
 
@@ -19,7 +21,7 @@ export default function Applybtn({job}) {
             }
 
         }
-        catch (err) {
+        catch (err : any) {
             console.log(err.message);
         }
 

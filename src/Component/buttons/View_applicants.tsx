@@ -1,14 +1,16 @@
-//@ts-nocheck
 "use client"
 
 import { useState } from "react"
 import { BsTrash } from "react-icons/bs";
+import { Openings ,user } from "../../../generated/prisma";
 
-export default function View_applicants({ job }) {
+export default function View_applicants({ job } : {
+    job : Openings
+}) {
 
     const [isclicked, setIsclicked] = useState(false);
     const [applicants_array, setArr] = useState([]);
-
+    const [isloading , setLoading] =useState(false);
 
     function closeModal() {
         setIsclicked(false);
@@ -17,7 +19,7 @@ export default function View_applicants({ job }) {
 
 
     async function handleclick() {
-
+        setLoading(true);
         setIsclicked(true);
         const res = await fetch("http://localhost:3000/api/applicants/byapplicant/" + job.id)
         const data = await res.json();
@@ -28,10 +30,12 @@ export default function View_applicants({ job }) {
         else {
             alert("something went wrong")
         }
+            setLoading(false);
+
     }
 
 
-   async function handledlt(id){
+   async function handledlt(id : string){
        
     const res = await fetch("/api/applicants/byowner/" + id ,{
         method : "DELETE"
@@ -62,7 +66,10 @@ export default function View_applicants({ job }) {
 
                             {applicants_array.length > 0 ? (
                                 <ul className="space-y-2">
-                                    {applicants_array.map((i) => (
+                                    {applicants_array.map((i : {
+                                        id : string,
+                                        user : user
+                                    }) => (
                                         <li key={i.id} className="text-gray-800 border-b pb-1">
                                             <div className="flex justify-between">
                                                 {i?.user?.email}
@@ -73,7 +80,9 @@ export default function View_applicants({ job }) {
                                     ))}
                                 </ul>
                             ) : (
-                                <p className="text-gray-600">No applicants found.</p>
+                                isloading ? 
+                                <p className="text-gray-600">Loading...</p>
+                                : <p className="text-gray-600">No applicants found</p>
                             )}
                         </div>
                     </div>

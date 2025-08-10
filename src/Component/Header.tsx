@@ -10,10 +10,23 @@ import { CgUser } from "react-icons/cg";
 import { FaBeer } from 'react-icons/fa';
 import { IoAdd } from "react-icons/io5";
 import { MdFilterList } from "react-icons/md";
+import { Company } from "../../generated/prisma";
+
+type Item = {
+    id : string;
+    title : string;
+};
+
+
+// type user = 
+// {
+//     id : string ,
+//     company : Company
+// }
 
 export default function Header() {
 
-    const { user } = useUser();
+    const { user }  = useUser();
 
     const [isOpen, setIsOpen] = useState(false);
     const [query, setQuery] = useState("");
@@ -65,7 +78,9 @@ export default function Header() {
 
                 {suggestions.length > 0 && (
                     <ul className="absolute top-10 left-0 md:w-[500px] w-[200px] bg-gray-200 border rounded-b-md shadow-md z-50">
-                        {suggestions.map((item) => (
+                        {suggestions.map((item : Item
+
+                        ) => (
                             <li
                                 key={item.id}
                                 className="p-2 hover:bg-gray-400 truncate cursor-pointer"

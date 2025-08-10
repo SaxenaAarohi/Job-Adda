@@ -1,4 +1,3 @@
-//@ts-nocheck
 import { NextRequest , NextResponse} from "next/server";
 import prismaClient from "@/services/prisma";
 
@@ -20,7 +19,7 @@ export async function DELETE(req: NextRequest, { params }: { params: { user_id: 
             })
 
     }
-    catch (err) {
+    catch (err : any) {
         console.log(err.message)
         return NextResponse.json({
             success: false,

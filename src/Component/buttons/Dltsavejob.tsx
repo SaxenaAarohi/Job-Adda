@@ -1,7 +1,9 @@
-//@ts-nocheck
 "use client"
 import { CgTrash } from "react-icons/cg"
-export default function Savejobdlt({job}){
+import { Openings } from "../../../generated/prisma";
+export default function Savejobdlt({job} : {
+    job : Openings
+}){
 
 async function handledlt(){
 
@@ -19,7 +21,7 @@ async function handledlt(){
 }
 
 return (
-    <button onClick={handledlt}><CgTrash/></button>
+    <button onClick={handledlt} title="Delete Saved Job"><CgTrash/></button>
 )
 
 }

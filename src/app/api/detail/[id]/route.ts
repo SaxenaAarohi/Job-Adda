@@ -1,10 +1,13 @@
-//@ts-nocheck
 import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, { params }) {
+type Params = Promise<{
+id : string
+}>
 
-    const id = params.id;
+export async function GET(req: NextRequest, { params } : {params : Params} ) {
+
+    const {id} = await params;
 
     try {
 
@@ -31,7 +34,7 @@ export async function GET(req: NextRequest, { params }) {
         }
 
     }
-    catch (err) {
+    catch (err : any) {
         console.log(err.message);
         return NextResponse.json({
             success: false,
@@ -41,15 +44,15 @@ export async function GET(req: NextRequest, { params }) {
 
 }
 
-export async function DELETE(req: NextRequest, { params }) {
+export async function DELETE(req: NextRequest, { params } : {params : Params}) {
 
-    const jobid = await params.id;
+    const {id} = await params;
 
 
     try {
         const res = await prismaClient.openings.delete({
             where: {
-                id: jobid,
+                id
             }
         })
 
@@ -67,7 +70,7 @@ export async function DELETE(req: NextRequest, { params }) {
         }
 
     }
-    catch (err) {
+    catch (err : any) {
         console.log(err.message)
         return NextResponse.json({
             success: false,
@@ -78,16 +81,16 @@ export async function DELETE(req: NextRequest, { params }) {
 }
 
 
-export async function POST(req: NextRequest, { params }) {
+export async function POST(req: NextRequest, { params } : {params : Params}) {
 
-    const jobid = params?.id;
+    const {id }= await params
 
     const body = await req.json();
 
     try {
-        const updated = await prismaClient.Openings.update({
+        const updated = await prismaClient.openings.update({
             where: {
-                id: jobid
+                id
             },
             data: body
 
@@ -106,7 +109,7 @@ export async function POST(req: NextRequest, { params }) {
         }
 
     }
-    catch (err) {
+    catch (err : any) {
         console.log(err.message);
     }
 
