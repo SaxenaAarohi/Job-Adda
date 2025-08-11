@@ -1,8 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import prismaClient from "@/services/prisma";
 
-export async function GET(req : NextRequest , {params} : any){
-     const id = await params.id;
+type Params = Promise<{
+id : string
+}>
+
+export async function GET(req : NextRequest , {params} : {params : Params}){
+     const {id} = await params;
      
       try {
      const  company = await prismaClient.company.findUnique({

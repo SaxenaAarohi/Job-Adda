@@ -3,13 +3,13 @@ import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 type Params = Promise<{
- job_id : string
+ id : string
 }>
 
 export async function GET(req: NextRequest, { params } : {params : Params}) {
 
     const user = await getuserfromcookies();
-    const {job_id} = await params;
+    const {id} = await params;
 
     if (!user) {
         return NextResponse.json({
@@ -20,7 +20,7 @@ export async function GET(req: NextRequest, { params } : {params : Params}) {
 
     const jobtosave = {
         user_id: user.id,
-        job_id
+        job_id : id
     };
     
 try {
@@ -49,12 +49,12 @@ catch(err : any){
 
 export async function DELETE(req: NextRequest, { params } : {params : Params}) {
 
-    const {job_id} = await params;
+    const {id} = await params;
 
     try {
         const res = await prismaClient.savejob.deleteMany({
             where: {
-                job_id
+                job_id:id
             }
         })
 

@@ -1,13 +1,11 @@
 //@ts-nocheck
 'use client'
-import { useSavejob } from "@/Context/Savecontext";
 import { useUser } from "@/Context/Usercontext";
 import Link from "next/link";
-import Appdltbtn from "./buttons/Dlt_application_btn";
-import Edit from "./buttons/Editbtn";
-import { useEffect, useState } from "react";
 import { Company, Openings } from "../../generated/prisma";
 import Editnddlt from "./buttons/Delete";
+import Appdltbtn from "./buttons/Dlt_application_btn";
+import Edit from "./buttons/Editbtn";
 import Savebtn from "./buttons/Savebtn";
 
 export default function JobCard({ job, company, isapply , saved }: {

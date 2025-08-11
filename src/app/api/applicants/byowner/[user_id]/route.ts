@@ -1,6 +1,7 @@
 import { NextRequest , NextResponse} from "next/server";
 import prismaClient from "@/services/prisma";
 
+
 export async function DELETE(req: NextRequest, { params }: { params: { user_id: string } }) {
 
     const userid = params.user_id;

@@ -2,10 +2,13 @@ import { getuserfromcookies } from "@/app/helper";
 import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, { params }) {
+type Params = Promise<{
+    id : string
+}>
+export async function GET(req: NextRequest, { params } : {params :Params}) {
 
     const user = await getuserfromcookies();
-    const job_id = params.id;
+    const {id} = await params;
 
     if (!user) {
         return NextResponse.json({
@@ -16,7 +19,7 @@ export async function GET(req: NextRequest, { params }) {
 
     const app = {
         user_id: user.id,
-        job_id
+        job_id : id
     };
     
 try {
@@ -30,7 +33,7 @@ try {
         data : application
     });
 }
-catch(err){
+catch(err : any){
     console.log(err.message);
 }
 

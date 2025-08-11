@@ -3,15 +3,15 @@ import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 type Params = Promise<{
-    job_id : string
+    id : string
 }>
 export async function GET(req: NextRequest, { params } : {params : Params}) {
 
-    const {job_id} = await params;    
+    const {id} = await params;    
 
     try {
         const applicants = await prismaClient.application.findMany({
-            where: {job_id},
+            where: {job_id : id},
             include : {
                 user : true
             }
@@ -46,13 +46,13 @@ export async function GET(req: NextRequest, { params } : {params : Params}) {
 
 export async function DELETE(req: NextRequest, { params } : {params : Params}) {
 
-    const {job_id} = await params;
+    const {id} = await params;
 
 
     try {
         const res = await prismaClient.application.deleteMany({
             where: {
-                job_id 
+                job_id  : id
             }
         })
 
