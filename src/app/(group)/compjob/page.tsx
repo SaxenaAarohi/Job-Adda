@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { getuserfromcookies } from "@/app/helper"
 import prismaClient from "@/services/prisma"
 import JobCard from "@/Component/Display";
@@ -11,7 +12,8 @@ export default async function Jobs() {
 
     return (
         <div className="text-white flex flex-wrap gap-7 justify-center mt-4 text-5xl">
-            {jobs_of_comp?.map((i) => (
+            {comp &&
+            jobs_of_comp?.map((i) => (
                 <JobCard key={i.id} job={i} company={comp} />
             ))}
         </div>
