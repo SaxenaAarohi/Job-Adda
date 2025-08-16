@@ -8,7 +8,7 @@ export default function Appdltbtn({job} : {
    async function handleclick()
     {
 
-    const res = await fetch("http://localhost:3000/api/applicants/byapplicant" + job?.id , {
+    const res = await fetch("http://localhost:3000/api/applicants/byapplicant/" + job?.id , {
         method : "DELETE"
     });
     const data = await res.json();
