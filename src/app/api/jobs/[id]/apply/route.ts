@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { getuserfromcookies } from "@/app/helper";
 import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
