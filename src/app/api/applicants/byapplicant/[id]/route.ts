@@ -5,44 +5,6 @@ import { NextRequest, NextResponse } from "next/server";
 type Params = Promise<{
     id : string
 }>
-export async function GET(req: NextRequest, { params } : {params : Params}) {
-
-    const {id} = await params;    
-
-    try {
-        const applicants = await prismaClient.application.findMany({
-            where: {job_id : id},
-            include : {
-                user : true
-            }
-        });
-
-        if (applicants) {
-            console.log(applicants.length)
-            return NextResponse.json({
-                success: true,
-                data: applicants
-
-            });
-
-        }
-        else {
-
-            return NextResponse.json({
-                success: false,
-                message: " Applicnat not found"
-
-            });
-
-        }
-    }
-    catch(err : any){
-        console.log(err.messgae);
-    } 
-
-
-}
-
 
 export async function DELETE(req: NextRequest, { params } : {params : Params}) {
 
