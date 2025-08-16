@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+
 export default function Savebtn({ jobid , saved } : {
   jobid : String ,
   saved : boolean
@@ -13,6 +15,7 @@ export default function Savebtn({ jobid , saved } : {
       }
       else {
         alert(data.message);
+        redirect("/login");
       }
 
     }
