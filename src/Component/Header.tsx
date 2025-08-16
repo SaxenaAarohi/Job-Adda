@@ -3,14 +3,12 @@
 
 import { useUser } from "@/Context/Usercontext";
 import Link from "next/link";
-import { GiHamburgerMenu } from "react-icons/gi";
 import { useEffect, useState } from "react";
 import { BiLogIn, BiSave } from "react-icons/bi";
 import { CgUser } from "react-icons/cg";
 import { FaBeer } from 'react-icons/fa';
+import { GiHamburgerMenu } from "react-icons/gi";
 import { IoAdd } from "react-icons/io5";
-import { MdFilterList } from "react-icons/md";
-import { Company } from "../../generated/prisma";
 
 type Item = {
     id : string;
