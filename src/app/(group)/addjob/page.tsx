@@ -1,5 +1,5 @@
-'use client'
 //@ts-nocheck
+'use client'
 import { getuserfromcookies } from "@/app/helper";
 import {  useUser } from "@/Context/Usercontext";
 import { useContext, useState } from "react";
@@ -26,7 +26,7 @@ export default function AddJobForm() {
       salary,
       job_type,
       employment_type : emp_type,
-      compid : user.company.id
+      compid : user?.company?.id
     }
 
     const req = await fetch("http://localhost:3000/api/jobs",{
