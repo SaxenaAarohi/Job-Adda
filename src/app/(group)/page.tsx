@@ -2,11 +2,11 @@
 import prismaClient from "@/services/prisma";
 import JobCard from "../../Component/Display";
 import Company from "./company/page";
+import Hero from "@/Component/Hero";
 import { getuserfromcookies } from "../helper";
 
 export default async function Home({ searchParams }) {
 
-  //const {user}=await getuserfromcookies();
   const jobs = await prismaClient.openings.findMany({
     include: {
       company: true
@@ -26,10 +26,17 @@ export default async function Home({ searchParams }) {
     const savedjobsid =new Set(alreadysave.map((i) => i.job_id));
 
   return (
-    <div className="flex p-4 gap-5 justify-center flex-wrap">
+    <div className="flex flex-col">
+      <div>
+        <Hero/>
+      </div>
+   <div className="flex p-4 gap-5 justify-center flex-wrap">
+    
       {jobs.map((job) => (
           <JobCard key={job.id} job={job} company={job.company} saved={ savedjobsid.has(job.id)} />
       ))}
     </div>
+    </div>
+ 
   );
 }
