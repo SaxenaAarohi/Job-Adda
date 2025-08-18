@@ -5,12 +5,24 @@ import { FaTrashAlt } from "react-icons/fa";
 import DialogDemo from "./View_applicants";
 import View_applicants from "./View_applicants";
 import Applybtn from "./Applubtn";
-import { Openings, user } from "../../../generated/prisma";
+import { Company, Openings, user } from "../../../generated/prisma";
+
+type User = {
+  id: string;
+  email: string;
+  password?: string; 
+  role: string
+};
+
+type UserWithCompany = {
+  user: User;
+  company?: Company | null;
+};
 
 
 export default function Editnddlt({ job , user} : {
     job : Openings,
-    user : user
+    user : UserWithCompany | null
 }) {
 
 

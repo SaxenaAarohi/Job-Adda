@@ -36,9 +36,9 @@ export default function Login() {
 
   return (
     <div className="flex text-black items-center justify-center min-h-screen bg-gray-50">
-      <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-sm border border-gray-200">
+      <div className="bg-white p-7 rounded-2xl shadow-lg w-[30%] border border-gray-200">
   
-        <h2 className="text-2xl font-bold text-center text-gray-800">
+        <h2 className="text-xl font-bold text-center text-gray-800">
           Login to Your Account
         </h2>
         <p className="text-sm text-gray-500 text-center mt-1 mb-6">
@@ -57,7 +57,7 @@ export default function Login() {
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+              className="w-full px-4 py-1 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
               required
             />
           </div>
@@ -71,14 +71,14 @@ export default function Login() {
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+              className="w-full px-4 py-1 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
               required
             />
           </div>
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+            className="w-full bg-blue-600 text-white py-1 rounded-lg hover:bg-blue-700 transition"
           >
             Login
           </button>

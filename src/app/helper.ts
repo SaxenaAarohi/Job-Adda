@@ -1,5 +1,19 @@
 import prismaClient from "@/services/prisma";
 import { cookies } from "next/headers";
+import { Openings } from "../../generated/prisma";
+
+type Userwithall = {
+    id: string;
+    email: string;
+    role: string;
+    company?: {
+        id: string;
+        name: string;
+        job: Openings[];
+        description: string;
+        owner: string;
+    } | null;
+} | null;
 
 export async function getuserfromcookies() {
 
@@ -11,7 +25,7 @@ export async function getuserfromcookies() {
         return null;
     }
 
-    const user = await prismaClient.user.findUnique({
+    const user: Userwithall | null = await prismaClient.user.findUnique({
         where: { email },
         include: {
             company: {
@@ -21,7 +35,7 @@ export async function getuserfromcookies() {
             }
         }
     })
-    
+
     if (!user) {
         return null;
     }

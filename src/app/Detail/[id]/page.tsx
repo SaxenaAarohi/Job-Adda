@@ -1,11 +1,9 @@
-//@ts-nocheck
-
 import { getuserfromcookies } from "@/app/helper";
 import Applybtn from "@/Component/buttons/Applubtn";
 import View_applicants from "@/Component/buttons/View_applicants";
 import prismaClient from "@/services/prisma";
 
-export default async function Detail({ params }) {
+export default async function Detail({ params } : { params: { id: string } }) {
 
   const id = params.id;
   const decodeid = decodeURIComponent(id);
@@ -58,7 +56,7 @@ export default async function Detail({ params }) {
 
         <div className="flex gap-4">
           {
-            user.role != "admin" && !userhasAplied  && <Applybtn job={datatodisplay} /> 
+            user?.role != "admin" && !userhasAplied  && <Applybtn job={datatodisplay} /> 
           }
           {
             user?.company?.id == datatodisplay?.company?.id &&  <View_applicants job={datatodisplay} />

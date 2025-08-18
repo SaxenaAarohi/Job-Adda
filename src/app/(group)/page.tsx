@@ -1,11 +1,10 @@
-//@ts-nocheck
 import prismaClient from "@/services/prisma";
 import JobCard from "../../Component/Display";
 import Company from "./company/page";
 import Hero from "@/Component/Hero";
 import { getuserfromcookies } from "../helper";
 
-export default async function Home({ searchParams }) {
+export default async function Home({ searchParams } : { searchParams: { q?: string } }) {
 
   const jobs = await prismaClient.openings.findMany({
     include: {

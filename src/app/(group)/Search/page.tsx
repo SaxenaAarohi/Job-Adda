@@ -2,7 +2,7 @@
 import JobCard from "../../../Component/Display";
 import prismaClient from "@/services/prisma";
 
-export default async function Search({ searchParams }) {
+export default async function Search({ searchParams } : { searchParams: { q: string, jt?: string, et?: string, ms?: string } }) {
 
     const q = searchParams.q;
     const jt = searchParams.jt || '';
@@ -31,9 +31,10 @@ export default async function Search({ searchParams }) {
                     }
                 ]
             },
-            ...(jt ? [{ job_type: { equals: jt, mode: "insensitive" } }] : []),
-            ...(et ? [{ employment_type: { equals: et, mode: "insensitive" } }] : []),
-            ...(ms ? [{ salary: ms }] : [])
+           (jt ? { job_type: { equals: jt, mode: "insensitive" } } : {}),
+           
+           (et ? { employment_type: { equals: et, mode: "insensitive" } } : {}),
+            (ms ? { salary: ms } : {})
         ]
     },
     include: {

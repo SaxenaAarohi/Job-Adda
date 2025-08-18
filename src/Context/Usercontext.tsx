@@ -3,11 +3,23 @@
 import { createContext } from "react";
 import { useState,useEffect } from "react";
 import { useContext } from "react";
-import { user } from "../../generated/prisma";
+import { Company } from "../../generated/prisma";
+
+type User = {
+  id: string;
+  email: string;
+  password?: string; 
+  role: string
+};
+
+type UserWithCompany = {
+  user: User;
+  company?: Company | null;
+};
 
 type UsercontextType = {
-  user : user | null ; 
-  setUser : ((user : user | null ) => void) | null
+  user : UserWithCompany | null ; 
+  setUser : ((user : UserWithCompany | null ) => void) | null
 }
 
 const Usercontext = createContext<UsercontextType>({
@@ -17,7 +29,7 @@ const Usercontext = createContext<UsercontextType>({
  
  export function UserProvider({ children } : any) {
  
- const [user, setUser] = useState<user | null>(null);
+ const [user, setUser] = useState<UserWithCompany | null>(null);
 
     useEffect(() => {
         async function getdata() {

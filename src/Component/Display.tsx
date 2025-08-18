@@ -1,4 +1,3 @@
-//@ts-nocheck
 'use client'
 import { useUser } from "@/Context/Usercontext";
 import Link from "next/link";
@@ -9,8 +8,8 @@ import Edit from "./buttons/Editbtn";
 import Savebtn from "./buttons/Savebtn";
 
 export default function JobCard({ job, company, isapply , saved }: {
-  job: Openings
-  company?: Company
+job: Openings & { company?: Company | null };
+  company?: Company & {job?: Openings[]};
   isapply?: boolean
   saved? : boolean
 }) {
@@ -22,12 +21,12 @@ export default function JobCard({ job, company, isapply , saved }: {
 
       <div
         key={job.id}
-        className="flex flex-col bg-gray-900 w-[400px] rounded-2xl shadow-md p-5  hover:shadow-lg transition-shadow border border-gray-800"
+        className="flex flex-col bg-gray-900 w-[300px] rounded-2xl shadow-md p-3  hover:shadow-lg transition-shadow border border-gray-800"
       >
 
         <div className="flex items-start justify-between">
 
-          <h2 className="text-lg md:text-2xl  text-white font-bold text-gray-800 line-clamp-1">
+          <h2 className="text-lg md:text-lg  text-white font-bold text-gray-800 line-clamp-1">
             {job.title}
           </h2>
 
@@ -49,7 +48,7 @@ export default function JobCard({ job, company, isapply , saved }: {
         </div>
 
         {
-          company ? <Link className="text-sm md:text-lg text-gray-100" href={`/comp_detail/${company.id}`} >{company?.name}</Link> : <p></p>
+          company ? <Link className="text-sm md:text-sm text-gray-100" href={`/comp_detail/${company.id}`} >{company?.name}</Link> : <p></p>
 
         }
 
@@ -64,11 +63,11 @@ export default function JobCard({ job, company, isapply , saved }: {
         )}
 
         {user?.user?.role != "admin" && 
-        <Savebtn jobid={job.id} saved={saved}/>
+        <Savebtn jobid={job.id} saved={saved ?? false} />
         }
 
 
-        <Link href={`/Detail/${job.id}`} className="text-center inline-block mt-4 bg-blue-600 text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-700 transition"> Detail
+        <Link href={`/Detail/${job.id}`} className="text-center inline-block mt-4 bg-blue-600 text-white text-sm px-4 py-1 rounded-lg hover:bg-blue-700 transition"> Detail
         </Link>
 
 

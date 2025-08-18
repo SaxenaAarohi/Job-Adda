@@ -1,6 +1,5 @@
-//@ts-nocheck
 import jwt from 'jsonwebtoken'
-export function createToken(data){
-    const token = jwt.sign(dtaa , process.env.JWT_SECRET);
+export function createToken(data: any) {
+    const token = jwt.sign(data , process.env.JWT_SECRET as string);
     return token;
 }
