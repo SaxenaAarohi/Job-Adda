@@ -7,8 +7,6 @@ export async function DELETE(
   context: any
 ) {
   const { id } = context.params as { id: string };
-
-
     try {
         const res = await prismaClient.application.deleteMany({
             where: {
